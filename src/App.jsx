@@ -3,6 +3,12 @@ import { useState, useEffect, useRef } from "react";
 const FONT_LINK =
   "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Satoshi:wght@400;500;700&display=swap";
 
+// ── LOGO SIZES ──────────────────────────────────────────
+// Change these values to resize logos independently (in pixels).
+const NAV_LOGO_HEIGHT = 36;
+const FOOTER_LOGO_HEIGHT = 32;
+// ─────────────────────────────────────────────────────────
+
 const C = {
   bg: "#FAFAF7",
   bgDark: "#0C0F0A",
@@ -94,7 +100,7 @@ function Nav() {
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: sc ? "12px 0" : "20px 0", transition: "all .3s ease" }} className={sc ? "nav-s" : ""}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <a href="#" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
-            <img src="/logo-medium.png" alt="Debis Farms" style={{ height: 36 }} />
+            <img src="/logo-medium.png" alt="Debis Farms" style={{ height: NAV_LOGO_HEIGHT }} />
           </a>
           <div className="dn" style={{ display: "flex", alignItems: "center", gap: 36 }}>
             {NAV.map(n => (
@@ -109,7 +115,8 @@ function Nav() {
         </div>
       </nav>
       <div className={`mm ${open ? "open" : ""}`} style={{ position: "fixed", inset: 0, zIndex: 200, background: C.bg, display: "flex", flexDirection: "column", padding: 32 }}>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <img src="/logo-medium.png" alt="Debis Farms" style={{ height: NAV_LOGO_HEIGHT }} />
           <button onClick={() => setOpen(false)} style={{ background: "none", border: "none", cursor: "pointer", padding: 8 }}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={C.text} strokeWidth="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
@@ -117,6 +124,7 @@ function Nav() {
         <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", gap: 32 }}>
           {NAV.map(n => <a key={n.label} href={n.href} onClick={() => setOpen(false)} className="sf" style={{ textDecoration: "none", fontSize: 40, color: C.text }}>{n.label}</a>)}
         </div>
+        <a href="#contact" onClick={() => setOpen(false)} className="bp" style={{ textDecoration: "none", padding: "16px 32px", borderRadius: 4, fontSize: 15, fontWeight: 600, textAlign: "center", display: "block" }}>CONTACT US</a>
       </div>
     </>
   );
@@ -342,11 +350,11 @@ function ContactSection() {
 
 function Footer() {
   return (
-    <footer style={{ background: C.bgDark, padding: "64px 32px 32px" }}>
+    <footer style={{ background: "#2A2D26", padding: "64px 32px 32px" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 40, paddingBottom: 40, borderBottom: "1px solid rgba(232,229,221,.1)" }}>
           <div>
-            <img src="/logo-medium.png" alt="Debis Farms" style={{ height: 32, filter: "brightness(0) invert(1)", marginBottom: 12 }} />
+            <img src="/logo-medium.png" alt="Debis Farms" style={{ height: FOOTER_LOGO_HEIGHT, marginBottom: 12 }} />
             <p style={{ fontSize: 14, color: C.lightMuted, marginTop: 0, maxWidth: 280, lineHeight: 1.6 }}>Cultivating excellence across Nigeria, one harvest at a time.</p>
           </div>
           <div style={{ display: "flex", gap: 48, flexWrap: "wrap" }}>
