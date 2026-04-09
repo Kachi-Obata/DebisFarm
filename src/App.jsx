@@ -5,8 +5,8 @@ const FONT_LINK =
 
 // ── LOGO SIZES ──────────────────────────────────────────
 // Change these values to resize logos independently (in pixels).
-const NAV_LOGO_HEIGHT = 36;
-const FOOTER_LOGO_HEIGHT = 32;
+const NAV_LOGO_HEIGHT = 50;
+const FOOTER_LOGO_HEIGHT = 50;
 // ─────────────────────────────────────────────────────────
 
 const C = {
@@ -78,12 +78,6 @@ function R({ children, cls = "", d = 0 }) {
   return <div ref={ref} className={`rv ${d ? `d${d}` : ""} ${cls}`}>{children}</div>;
 }
 
-function useScroll() {
-  const [y, setY] = useState(0);
-  useEffect(() => { const h = () => setY(window.scrollY); window.addEventListener("scroll", h, { passive: true }); return () => window.removeEventListener("scroll", h); }, []);
-  return y;
-}
-
 const NAV = [
   { label: "About", href: "#about" },
   { label: "What We Grow", href: "#produce" },
@@ -92,12 +86,10 @@ const NAV = [
 ];
 
 function Nav() {
-  const y = useScroll();
   const [open, setOpen] = useState(false);
-  const sc = y > 40;
   return (
     <>
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: sc ? "12px 0" : "20px 0", transition: "all .3s ease" }} className={sc ? "nav-s" : ""}>
+      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "12px 0", transition: "all .3s ease" }} className="nav-s">
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <a href="#" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}>
             <img src="/logo-medium.png" alt="Debis Farms" style={{ height: NAV_LOGO_HEIGHT }} />
@@ -114,7 +106,21 @@ function Nav() {
           </button>
         </div>
       </nav>
-      <div className={`mm ${open ? "open" : ""}`} style={{ position: "fixed", inset: 0, zIndex: 200, background: C.bg, display: "flex", flexDirection: "column", padding: 32 }}>
+      <div
+        className={`mm ${open ? "open" : ""}`}
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 200,
+          background: C.bg,
+          display: "flex",
+          flexDirection: "column",
+          padding: 32,
+          transform: open ? "translateX(0)" : "translateX(100%)",
+          transition: "transform .4s cubic-bezier(.16,1,.3,1)",
+          pointerEvents: open ? "auto" : "none",
+        }}
+      >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <img src="/logo-medium.png" alt="Debis Farms" style={{ height: NAV_LOGO_HEIGHT }} />
           <button onClick={() => setOpen(false)} style={{ background: "none", border: "none", cursor: "pointer", padding: 8 }}>
